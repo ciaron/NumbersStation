@@ -37,16 +37,19 @@ public class NumbersStation {
     }
 
     // There may be an error from the int() rounding.
-    // distribute the difference randomly over the array
+    // distribute (or subtract) the difference randomly over the array
     int sum=0;
     for (int i=0; i<n; i++) {
       sum += vals[i];
     }
 
     int err = m - sum;
-    for (int i=0; i<err; i++) {
+    for (int i=0; i<Math.abs(err); i++) {
       int idx = (int) parent.random(n);
-      vals[idx]++;
+      if (err > 0) {
+        vals[idx]++;
+      } else {
+        vals[idx]--;
     }
 
     return vals;
