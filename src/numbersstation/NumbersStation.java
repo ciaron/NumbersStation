@@ -22,9 +22,20 @@ public class NumbersStation {
    */
 
   public int[] randomSubdivision(int m, int n) {
+    return randomSubdivision(m, n, 1);
+  }
+
+  /**
+   * @param m int size of thing to be divided
+   * @param n int number of subdivisions
+   * @param min int smallest value of any subdivision
+   * @return An array of n integers whose sum is m
+   */
+
+  public int[] randomSubdivision(int m, int n, int min) {
     int[] vals = new int[n];
 
-    // fill with random numbers, ensure minimum of 1.
+    // fill with random numbers
     int isum = 0;
     for (int i=0; i<n; i++) {
       vals[i] = (int) parent.random(m);
@@ -32,11 +43,17 @@ public class NumbersStation {
     }
 
     // Divide each value by sum of the array, normalising.
-    // Ensure each element is at least 1. Error correction will handle this later
     for (int i=0; i<n; i++) {
       vals[i] = (int) ( m * vals[i] / isum );
       if (vals[i] == 0) {
         vals[i] = 1;
+      }
+    }
+
+    // Ensure each element is at least "min". Error correction will handle this later
+    for (int i=0; i<n; i++) {
+      if (vals[i] < min) {
+        vals[i] = min;
       }
     }
 
