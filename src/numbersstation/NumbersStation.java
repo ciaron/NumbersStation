@@ -24,16 +24,20 @@ public class NumbersStation {
   public int[] randomSubdivision(int m, int n) {
     int[] vals = new int[n];
 
-    // fill with random numbers
+    // fill with random numbers, ensure minimum of 1.
     int isum = 0;
     for (int i=0; i<n; i++) {
       vals[i] = (int) parent.random(m);
       isum += vals[i];
     }
 
-    // divide each value by sum of the array, normalising.
+    // Divide each value by sum of the array, normalising.
+    // Ensure each element is at least 1. Error correction will handle this later
     for (int i=0; i<n; i++) {
       vals[i] = (int) ( m * vals[i] / isum );
+      if (vals[i] == 0) {
+        vals[i] = 1;
+      }
     }
 
     // There may be an error from the int() rounding.
@@ -50,6 +54,7 @@ public class NumbersStation {
         vals[idx]++;
       } else {
         vals[idx]--;
+      }
     }
 
     return vals;
